@@ -1,0 +1,205 @@
+.modal-dialog-content hr {
+  margin: 3rem 0;
+}
+
+.modal-dialog-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-dialog-content {
+
+  overflow-y: auto;
+  padding: 2rem;
+  background: var(--bg-primary);
+  border-radius: 5px;
+  text-align: center;
+  max-width: 80%;
+  box-shadow: 0 0 5rem #0b1d36;
+  animation: modal-dialog-bounce-in 0.3s ease-out;
+}
+
+@keyframes modal-dialog-bounce-in {
+  0%   { transform: scale(0.4); opacity: 0; }
+  70%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1.0); }
+}
+
+.modal-dialog-body {
+  max-height: 65vh;
+  overflow-y: auto;
+  padding: 2rem;
+  background: var(--bg-alternate);
+  border-radius: 5px;
+  text-align: left;
+}
+
+.modal-dialog-content p {
+  margin-bottom: 2rem;
+}
+
+.modal-dialog-content h2 {
+  margin: 0;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  font-size: 2.0rem;
+  display: block;
+}
+
+.modal-dialog-content * {
+   color: var(--text-primary);
+   font-size: 1.1rem;
+   margin: 0.5rem;
+   line-height: 125%;
+}
+
+.modal-dialog-close {
+  margin-top: 1em;
+  padding: 0.5em 1.5em;
+  font-size: 1em;
+}
+
+.learning-resources-content {
+  text-align: left;
+}
+
+.learning-video-list {
+  display: grid;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.learning-video-item {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.8rem;
+}
+
+.learning-video-item iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+/* ── Model Variation Dialog ── */
+
+.variation-dialog {
+  width: 60vw;
+  animation: variation-dialog-bounce-in 0.3s ease-out;
+  box-shadow: 0 0 7rem #08161e9e;
+}
+
+@keyframes variation-dialog-bounce-in {
+  0%   { transform: scale(0.4); opacity: 0; }
+  70%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1.0); }
+}
+
+.variation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0rem;
+  padding: 0;
+  max-height: 40vh;
+  overflow: auto;
+  background: var(--bg-alternate);
+}
+
+.variation-card {
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.25rem;
+  cursor: pointer;
+  text-align: center;
+  transition: box-shadow 0.25s, transform 0.25s;
+  background: var(--bg-alternate);
+  transform: scale(0.95);
+}
+
+.variation-card:hover {
+  box-shadow: 0 0 0 2px var(--text-alternate);
+  transform: scale(1.00);
+}
+
+.variation-card:active {
+  transform: scale(0.95);
+}
+
+.variation-card.selected {
+  box-shadow: 0 0 0 2px var(--text-primary);
+}
+
+.variation-preview-image {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  background: var(--bg-primary);
+  margin: 0;
+  filter: none !important; /* avoid inverting image like we do for icons in light mode */
+}
+
+.variation-name {
+  font-size: 1.3rem;
+}
+
+.variation-license-chip {
+    padding: 0.5rem 1.0rem;
+    background: color-mix(in srgb, var(--text-alternate) 22%, var(--bg-primary));
+    font-size: 90%;
+    margin: 0;
+}
+.variation-license-chip:hover {
+  background: color-mix(in srgb, var(--text-alternate) 32%, var(--bg-primary));
+}
+
+.variation-attribution {
+  opacity: 0.7;
+}
+
+.variation-loading-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+}
+
+.variation-loading-track {
+  width: 100%;
+  background: var(--bg-alternate);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center; /* vertical align */
+}
+
+.variation-loading-bar {
+  flex: 1;
+  height: 100%;
+  background-color: var(--button-primary-bg);
+  border-radius: 4px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.2s ease;
+  display: block;
+}
+
+.variation-loading-text {
+  color: var(--text-alternate);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.variation-dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
