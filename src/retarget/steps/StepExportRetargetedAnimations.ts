@@ -122,7 +122,7 @@ export class StepExportRetargetedAnimations extends EventTarget {
         console.log('Exported GLB successfully')
       })
       .catch((error) => { console.log('Error exporting GLB:', error) })
-    }, 'glb', this.animation_clips_to_export.length);
+    }, 'glb', retargeted_clips);
   }
 
   public async export_glb (exported_scene: Scene, animations_to_export: AnimationClip[], file_name: string): Promise<void> {
