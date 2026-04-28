@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нейроматор — комбинатор анимаций</title>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: system-ui, sans-serif; }
+        #controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            z-index: 100;
+        }
+        input { flex: 2; padding: 10px; border-radius: 8px; border: none; background: #2a2a2e; color: white; }
+        button { padding: 10px 18px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; background: #4CAF50; color: white; }
+        button:nth-child(3) { background: #FF9800; }
+        button:nth-child(4), button:nth-child(5) { background: #2196F3; }
+        .status { background: #333; padding: 10px 15px; border-radius: 8px; font-family: monospace; color: #0f0; }
+        @media (max-width: 700px) { #controls { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <input type="text" id="queryInput" placeholder="Опишите анимацию: бег с пистолетом, грустная ходьба, атака мечом...">
+        <button id="searchBtn">🎬 Найти</button>
+        <button id="modeToggle">🎭 Комбинированный</button>
+        <button id="exportModelBtn">💾 Скачать модель (GLB)</button>
+        <button id="exportAnimBtn">📋 Скачать анимацию (JSON)</button>
+        <div class="status" id="status">⚡ Загрузка...</div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "@xenova/transformers": "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.0/dist/transformers.min.js"
+            }
+        }
+    </script>
+    <script type="module" src="./main.js"></script>
+</body>
+</html>

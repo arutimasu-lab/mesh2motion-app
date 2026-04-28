@@ -2,6 +2,93 @@ import { UI } from '../../UI.ts'
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js'
 import { type AnimationClip, Scene, type SkinnedMesh, type Object3D } from 'three'
 
+// ================= КОНФИГУРАЦИЯ =================
+const CONFIG = {
+    yoMoneyWallet: "4100118499721636",
+    priceAmount: 1 * 75.40,
+    apiUrl: '/api/generate',
+    defaultSystemPrompt: `Формат ответа (ТОЛЬКО JSON):
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "neuromator": {
+      "loop": true,
+      "nodes": {
+        "Cube": { 
+            "rotation": { "0": [0,0,0], "1.0": [0,0,45], ... }, 
+            "scale": { "0": [1,1,1], "2.0": [2,2,2], ... }
+        }
+      }
+    }
+  }
+}
+Верни ТОЛЬКО JSON, без пояснений.`
+};
+
+function generatePaymentLabel() {
+    return `neuro_anim_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+}
+function showPaymentModal(onSuccess, type = 'glb', cost) {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    
+    const label = generatePaymentLabel();
+    const title = type === 'glb' ? '💎 Скачать GLB файл' : '📋 Скачать JSON анимацию';
+    const color = type === 'glb' ? '#4CAF50' : '#FF9800';
+    
+    modal.innerHTML = `<center>
+        <div class="modal-content" style="border-color: ${color}">
+            <h2>${title}</h2>
+            <div class="price">${CONFIG.priceAmount*cost} ₽ (${CONFIG.priceAmount/75.40 * cost} $)</div>
+            <p>Вы получите ${type === 'glb' ? 'GLB файл с анимацией' : 'JSON файл с анимацией'}</p>
+            <hr>
+            <div id="payFormContainer"></div>
+            <div id="paymentStatus" style="margin-top: 15px; font-size: 12px; color: #aaa;"></div>
+            <button class="close-btn">✖ Закрыть</button>
+        </div></center>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    const formContainer = document.getElementById('payFormContainer');
+    const paymentStatus = document.getElementById('paymentStatus');
+    const closeBtn = modal.querySelector('.close-btn');
+    
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://yoomoney.ru/quickpay/confirm.xml';
+    form.target = '_blank';
+    form.innerHTML = `
+        <input type="hidden" name="receiver" value="${CONFIG.yoMoneyWallet}">
+        <input type="hidden" name="quickpay-form" value="shop">
+        <input type="hidden" name="paymentType" value="AC">
+        <input type="hidden" name="sum" value="${CONFIG.priceAmount * cost}" data-type="number">
+        <input type="hidden" name="label" value="${label}">
+        <input type="hidden" name="successURL" value="${window.location.href}?${type}_success=${label}">
+        <button type="submit" class="pay-button" style="background: ${color}">
+            💸 Оплатить ${CONFIG.priceAmount*cost} ₽
+        </button>
+    `;
+    
+    formContainer.appendChild(form);
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramName = `${type}_success`;
+    if (urlParams.get(paramName) === label) {
+        setTimeout(() => {
+            paymentStatus.innerHTML = '✅ Оплата подтверждена!';
+            setTimeout(() => {
+                modal.remove();
+                onSuccess();
+            }, 1000);
+        }, 500);
+    }
+    
+    closeBtn.onclick = () => { modal.remove();  location.reload() };
+    paymentStatus.innerHTML = '1️⃣ Нажмите "Оплатить"<br>2️⃣ Оплатите на сайте ЮMoney<br>3️⃣ Вернитесь на эту страницу';
+
+}
+
 // Note: EventTarget is a built-ininterface and do not need to import it
 export class StepExportToFile extends EventTarget {
   private readonly ui: UI = UI.getInstance()
@@ -37,7 +124,9 @@ export class StepExportToFile extends EventTarget {
 
     console.log('SKINNED MESH DATA TO EXPORT:', skinned_meshes)
     console.log('animations to export', this.animation_clips_to_export)
-
+showPaymentModal(async () => {
+       
+   
     this.export_glb(export_scene, this.animation_clips_to_export, filename)
       .then(() => {
         // Move the skinned meshes back to their original parents
@@ -53,6 +142,8 @@ export class StepExportToFile extends EventTarget {
         })
       })
       .catch((error) => { console.log('Error exporting GLB:', error) })
+ }, 'glb', this.animation_clips_to_export.length);
+
   }
 
   public async export_glb (exported_scene: Scene, animations_to_export: AnimationClip[], file_name: string): Promise<void> {
