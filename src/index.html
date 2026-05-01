@@ -37,7 +37,7 @@
 
     <nav>
         <div style="display: inline-flex; align-items: center;">
-          
+            <a href="https://momind.vercel.app">MotionMind</a>
             <span class="active-nav-item">Explore</span>
             <a href="/create.html">Use Your Model</a>
             <a href="/retarget/index.html">Use Your Rigged Model</a>
@@ -51,38 +51,7 @@
             
 
             <!-- Settings Toggle Dropdown -->
-            <div id="settings-dropdown-container" class="nav-dropdown">
-                <button id="settings-toggle" class="nav-icon-button" aria-expanded="false" aria-controls="settings-dropdown-content" aria-haspopup="true" aria-label="Open settings">
-                    <span class="material-symbols-outlined">settings</span>
-                </button>
-
-                <!-- content that has options for settings -->
-                <div id="settings-dropdown-content" class="nav-dropdown-content" hidden>
-
-                    <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="settings-dropdown-row">
-                        <!-- icon will fill in here-->
-                        <span class="theme-icon"></span>
-                        <span class="theme-label"></span>
-                    </button>
-
-
-                    <div class="settings-dropdown-row light-intensity-setting">
-                        <label for="light-intensity-input">Light intensity</label>
-                        <input type="range" id="light-intensity-input" min="0.1" max="2.0" value="1.0" step="0.01" />
-                    </div>
-
-                    <div class="settings-dropdown-row">
-                        <label for="floor-grid-toggle">Show floor grid</label>
-                        <input type="checkbox" id="floor-grid-toggle" checked />
-                    </div>
-
-                    <div class="settings-dropdown-row">
-                        <label for="solid-background-toggle">Solid background</label>
-                        <input type="checkbox" id="solid-background-toggle" />
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </nav>
 
@@ -150,7 +119,7 @@
             </span>
 
             <!-- model variation switcher-->
-            <div id="model-variation-switcher">
+            <!--<div id="model-variation-switcher">
                 <div id="model-variation-info">
                     <img id="model-variation-info-image" src="" alt="" />
                     <div id="model-variation-info-details">
@@ -166,7 +135,7 @@
                     </div>
                 </div>
                 <button id="model-variation-button" class="secondary-button">Change</button>
-            </div>
+            </div>-->
 
     
 
@@ -196,16 +165,23 @@
                     <div style="display: flex; gap: 0.5rem;">
                         
                         <!-- testing the mirroring options -->
-                        <div class="styled-checkbox icon-toggle">
+                        
+                        <!--<div class="styled-checkbox icon-toggle">
                             <input type="checkbox" id="mirror-animations-checkbox" name="mirror-animations" value="true" style="display:none;">
                             <label for="mirror-animations-checkbox" data-tippy-content="Mirror animations"  tabindex="0">
                                 <img class="action-icon" src="images/icons/mirror.svg" alt="Mirror animations" />
                             </label>
-                        </div>
+                        </div>-->
 
+<<<<<<< HEAD
+                        <!--<button class="secondary-button" id="import-animations-button" data-tippy-content="Import GLB animations. Only Mesh2Motion rigs are supported at this time." aria-label="Import GLB animations. Only Mesh2Motion rigs are supported at this time.">
+=======
                         <button class="secondary-button" id="import-animations-button" data-tippy-content="Import GLB animations. Only MotionMind rigs are supported at this time." aria-label="Import GLB animations. Only MotionMind rigs are supported at this time.">
+>>>>>>> 0af2a1307b089e6b1936d65535fe580271e6fc9a
                             <span class="material-symbols-outlined">upload</span>
-                        </button>
+                        </button>-->
+
+
                         <input id="import-animations-input" type="file" accept=".glb" multiple style="display:none" />
 
                         <button id="export-button" data-tippy-content="Exporting will combine all animations into a single GLB file.">
@@ -257,6 +233,8 @@
 
 
     </div>
+
+    
 
 
     <!-- 3d view control hit box. It is just a container to help with 3d view controls. -->
