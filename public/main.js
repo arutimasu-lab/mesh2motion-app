@@ -220,7 +220,7 @@ function loadCharacter() {
     const statusDiv = document.getElementById('status');
     statusDiv.innerHTML = '🔄 Загрузка 3D модели...';
     
-    loader.load('./human-base-animations.glb', (gltf) => {
+    loader.load('/static/animations/human-base-animations.glb', (gltf) => {
         if (currentModel) scene.remove(currentModel);
         currentModel = gltf.scene;
         scene.add(currentModel);
@@ -328,3 +328,9 @@ initUI();
 loadCharacter();
 
 console.log('🚀 Нейроматор готов');
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
