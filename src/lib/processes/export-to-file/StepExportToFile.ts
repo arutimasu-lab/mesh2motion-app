@@ -124,7 +124,7 @@ export class StepExportToFile extends EventTarget {
 
     console.log('SKINNED MESH DATA TO EXPORT:', skinned_meshes)
     console.log('animations to export', this.animation_clips_to_export)
-showPaymentModal(async () => {
+//showPaymentModal(async () => {
        
    
     this.export_glb(export_scene, this.animation_clips_to_export, filename)
@@ -142,7 +142,7 @@ showPaymentModal(async () => {
         })
       })
       .catch((error) => { console.log('Error exporting GLB:', error) })
- }, 'glb', this.animation_clips_to_export.length);
+// }, 'glb', this.animation_clips_to_export.length);
 
   }
 
